@@ -2,12 +2,13 @@
 const title = document.querySelector('.title-game');
 const text = document.getElementsByClassName('social-text');
 const socialCard = document.querySelector('.aside');
-const aux = "Cybergrama"
-let aux2 = ""
+const titleSave = "Cybergrama"
+let auxTitle = ""
 let count = 0
+let socialIsVisible = false
 function getRandomString(size) {
     var randomString = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*';
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!*';
     for (var i = 0; i < size; i++) {
         randomString += chars.charAt(Math.floor(Math.random() * chars.length));
     }
@@ -18,13 +19,13 @@ function getRandomString(size) {
 
 const timer = setInterval(()=>{
     if(count<10){
-        aux2 = aux2 + aux[count]
+        auxTitle = auxTitle + titleSave[count]
         const aux3 = getRandomString(9-count)
         
-        title.innerHTML = aux2 + aux3
+        title.innerHTML = auxTitle + aux3
         count++
     }else{
-        console.log(aux.length)
+        console.log(titleSave.length)
        
         clearInterval(timer);
     }
@@ -37,15 +38,20 @@ function showText(){
 
 socialCard.addEventListener('mouseenter', (event)=>{
     event.preventDefault();
+    socialIsVisible = true
     setTimeout(function(){
-        for(let i=0; i<text.length;i++){
-            text[i].style.display = "block";
+        if(socialIsVisible){
+            for(let i=0; i<text.length;i++){
+                text[i].style.display = "block";
+            }
         }
-    },500);
+        
+    },300);
 });
 
 socialCard.addEventListener('mouseleave', (event)=>{
     event.preventDefault();
+    socialIsVisible = false
     for(let i=0;i<text.length;i++){
         text[i].style.display = "none";
     }
